@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "target": "ES5", // Compiles down to ES5 for broader compatibility
+        "module": "ESNext", // Use ESNext module system for modern bundling
+        "lib": [
+            "DOM",
+            "ES2015",
+            "ESNext"
+        ], // Supports DOM and ES6+ features
+        "jsx": "react", // Enable JSX for React
+        "declaration": true, // Generate .d.ts files for type declarations
+        "outDir": "./dist", // Output the compiled files to the dist folder
+        "strict": true, // Enable strict type-checking
+        "moduleResolution": "node", // Use Node.js module resolution strategy
+        "esModuleInterop": true, // Ensure compatibility with CommonJS and ES modules
+        "skipLibCheck": true, // Skip checking type declarations from node_modules
+        "forceConsistentCasingInFileNames": true, // Enforce consistent file naming case-sensitivity
+        "baseUrl": ".", // Set base URL for module resolution
+        "paths": {
+            "*": [
+                "src/*"
+            ] // Map everything in src for easier imports
+        }
+    },
+    "include": [
+        "src"
+    ], // Include all files from the src directory
+    "exclude": [
+        "node_modules",
+        "dist",
+        "test"
+    ] // Exclude unnecessary directories
+}

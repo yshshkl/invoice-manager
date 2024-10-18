@@ -1,0 +1,41 @@
+{
+  "name": "invoice-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:customer-management": "pnpm --filter customer-management run build",
+    "start:customer-management": "pnpm --filter customer-management run start",
+    "build:host": "pnpm --filter host run buil",
+    "start:host": "pnpm --filter host run start",
+    "start:all": "concurrently \"pnpm run start:customer-management\" \"pnpm run start:host\"",
+    "build:all": "concurrently \"pnpm run build:customer-management\" \"pnpm run build:host\"",
+    "build:shared-ui-library": "pnpm --filter shared-ui-library run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "workspaces": [
+    "apps/*"
+  ],
+  "dependencies": {
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.11",
+    "@types/react-dom": "18.3.1",
+    "concurrently": "^9.0.1",
+    "css-loader": "7.1.2",
+    "dotenv-webpack": "^8.1.0",
+    "html-webpack-plugin": "5.6.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "style-loader": "4.0.0",
+    "ts-loader": "9.5.1",
+    "typescript": "5.6.3",
+    "webpack": "5.95.0",
+    "webpack-cli": "5.1.4",
+    "webpack-dev-server": "5.1.0"
+  }
+}

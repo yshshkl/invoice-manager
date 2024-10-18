@@ -1,0 +1,16 @@
+{
+  "name": "shared-ui-library",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/bundle.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "webpack --config webpack.config.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
