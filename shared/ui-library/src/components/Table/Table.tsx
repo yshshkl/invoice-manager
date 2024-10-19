@@ -1,10 +1,12 @@
 import React, { ReactNode } from "react";
 
 import styles from './Table.css'
+import { DeleteOutlined } from "@ant-design/icons";
 
 export interface IColumn<T> {
     header: string; // Display header for the column
     accessor: keyof T; // The key of the data to display in this column
+    onRender?: () => ReactNode;
 }
 
 export interface ITableProps<T> {
@@ -13,7 +15,6 @@ export interface ITableProps<T> {
 }
 
 const Table = <T,>({ columns, data }: ITableProps<T>) => {
-    console.log('classes - ', styles)
     return (
         <table className={styles.table}>
             <thead>
@@ -27,7 +28,7 @@ const Table = <T,>({ columns, data }: ITableProps<T>) => {
                 {data.map((row, rowIndex) => (
                     <tr key={rowIndex}>
                         {columns.map((column) => (
-                            <td key={column.accessor as string}>{row[column.accessor] as ReactNode}</td>
+                            column.onRender ? <td key={column.accessor as string}>{column.onRender()}</td> : <td key={column.accessor as string}>{row[column.accessor] as ReactNode}</td>
                         ))}
                     </tr>
                 ))}

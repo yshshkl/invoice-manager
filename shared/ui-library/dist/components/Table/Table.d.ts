@@ -1,7 +1,8 @@
-import React from "react";
+import React, { ReactNode } from "react";
 export interface IColumn<T> {
     header: string;
     accessor: keyof T;
+    onRender?: () => ReactNode;
 }
 export interface ITableProps<T> {
     columns: IColumn<T>[];

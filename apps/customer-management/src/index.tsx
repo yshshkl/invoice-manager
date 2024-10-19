@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import CustomerList from './modules/CustomerList/CustomerList';
+import CustomerList from './modules/CustomerList';
 
 const rootElement = document.getElementById('root');
-
 if (rootElement) {
     const root = ReactDOM.createRoot(rootElement);
     root.render(
