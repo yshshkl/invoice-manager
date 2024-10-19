@@ -1,39 +1,6 @@
 import React, { ReactNode, useEffect, useState } from 'react';
-import { ICustomer } from '../../models/customer'
-import { Button } from 'shared-ui-library'
-
-interface Column<T> {
-    header: string; // Display header for the column
-    accessor: keyof T; // The key of the data to display in this column
-}
-
-interface TableProps<T> {
-    columns: Column<T>[]; // Array of column definitions
-    data: T[]; // Array of data (rows)
-}
-
-const Table = <T,>({ columns, data }: TableProps<T>) => {
-    return (
-        <table>
-            <thead>
-                <tr>
-                    {columns.map((column) => (
-                        <th key={column.header}>{column.header}</th>
-                    ))}
-                </tr>
-            </thead>
-            <tbody>
-                {data.map((row, rowIndex) => (
-                    <tr key={rowIndex}>
-                        {columns.map((column) => (
-                            <td key={column.accessor as string}>{row[column.accessor] as ReactNode}</td>
-                        ))}
-                    </tr>
-                ))}
-            </tbody>
-        </table>
-    );
-};
+import { ICustomer } from 'shared-ui-library/models'
+import { Button, Table } from 'shared-ui-library/components'
 
 function CustomerList() {
     const [customersList, setCustomerList] = useState<ICustomer[]>([])

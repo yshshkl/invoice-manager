@@ -1,10 +1,13 @@
 const path = require("path");
 
 module.exports = {
-    entry: path.resolve(__dirname, './src/index.ts'),
+    entry: {
+        components: path.resolve(__dirname, './src/components/index.ts'),
+        models: path.resolve(__dirname, './src/models/index.ts')
+    },
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "bundle.js",
+        filename: "[name].bundle.js",
         libraryTarget: "umd",
         globalObject: "this"
     },
@@ -17,6 +20,21 @@ module.exports = {
                 test: /\.(ts|tsx)$/,
                 use: "ts-loader",
                 exclude: /node_modules/
+            },
+            {
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                namedExport: false,
+                                localIdentName: "[hash:base64:5]",
+                            },
+                        },
+                    }
+                ]
             }
         ]
     },

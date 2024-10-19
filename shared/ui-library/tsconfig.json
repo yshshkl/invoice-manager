@@ -2,6 +2,7 @@
     "compilerOptions": {
         "target": "ES5", // Compiles down to ES5 for broader compatibility
         "module": "ESNext", // Use ESNext module system for modern bundling
+        "noImplicitAny": false,
         "lib": [
             "DOM",
             "ES2015",

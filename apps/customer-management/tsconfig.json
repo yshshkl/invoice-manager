@@ -8,17 +8,12 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "moduleResolution": "node",
+    "moduleResolution": "Bundler",
     "lib": [
       "DOM",
       "ES2015",
       "ESNext"
     ],
-    "paths": {
-      "shared": [
-        "../shared/src"
-      ]
-    }
   },
   "include": [
     "src"

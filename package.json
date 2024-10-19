@@ -8,8 +8,8 @@
     "start:customer-management": "pnpm --filter customer-management run start",
     "build:host": "pnpm --filter host run buil",
     "start:host": "pnpm --filter host run start",
-    "start:all": "concurrently \"pnpm run start:customer-management\" \"pnpm run start:host\"",
-    "build:all": "concurrently \"pnpm run build:customer-management\" \"pnpm run build:host\"",
+    "start:all": "pnpm run build:shared-ui-library && concurrently \"pnpm install && pnpm run start:customer-management\" \"pnpm run start:host\"",
+    "build:all": "pnpm run build:shared-ui-library && concurrently \"pnpm run build:customer-management\" \"pnpm run build:host\"",
     "build:shared-ui-library": "pnpm --filter shared-ui-library run build"
   },
   "keywords": [],
