@@ -1,5 +1,5 @@
 type FormFields<T> = {
-    [key in keyof T]: string;
+    [key in keyof T]: any;
 };
 declare const useFormFields: <T extends object>(initialState: FormFields<T>) => {
     fields: FormFields<T>;

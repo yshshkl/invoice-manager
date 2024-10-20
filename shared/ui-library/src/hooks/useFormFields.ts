@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 type FormFields<T> = {
-  [key in keyof T]: string;
+  [key in keyof T]: any;
 };
 
 const useFormFields = <T extends object>(initialState: FormFields<T>) => {

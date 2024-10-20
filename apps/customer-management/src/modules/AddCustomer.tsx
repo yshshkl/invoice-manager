@@ -1,8 +1,7 @@
 import React, { useContext } from 'react'
 import { Flex, Input } from 'antd'
 import { Button, Drawer } from "shared-ui-library/components";
-import { useFormFields } from "shared-ui-library/hooks";
-import useCustomerManager from "../hooks/useCustomerManager"
+import { useFormFields, useCustomerManager } from "shared-ui-library/hooks";
 import { ICustomer } from 'shared-ui-library/models';
 
 interface AddCustomerProps {

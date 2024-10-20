@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ICustomer } from 'shared-ui-library/models'
+import { ICustomer } from '../models'
 
 function useCustomerManager() {
     const [isProcessing, setIsProcessing] = useState<boolean>(false)

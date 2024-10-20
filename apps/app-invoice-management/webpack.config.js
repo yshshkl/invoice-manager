@@ -3,13 +3,14 @@ const { ModuleFederationPlugin } = require('webpack').container;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+    entry: path.resolve(__dirname, './src/index.tsx'),
     mode: 'development',
     devServer: {
         historyApiFallback: true,
-        port: process.env.PORT || 3005,
+        port: process.env.PORT || 3007,
     },
     output: {
-        publicPath: `http://localhost:${process.env.PORT || 3005}/`,
+        publicPath: `http://localhost:${process.env.PORT || 3007}/`,
     },
     module: {
         rules: [
@@ -25,28 +26,27 @@ module.exports = {
         ],
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js']
+        extensions: ['.tsx', '.ts', '.js'],
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: './public/index.html',
         }),
         new ModuleFederationPlugin({
-            name: 'host',
-            remotes: {
-                customersMf: 'customersMf@http://localhost:3004/remoteEntry.js',
-                productsMf: 'productsMf@http://localhost:3003/remoteEntry.js',
-                invoicesMf: 'invoicesMf@http://localhost:3007/remoteEntry.js'
+            name: 'invoicesMf',
+            filename: 'remoteEntry.js',
+            exposes: {
+                './Invoices': './src/modules/Invoices.tsx',
             },
             shared: {
                 react: {
                     singleton: true,
-                    requiredVersion: '18.3.1', // Match your React version
+                    requiredVersion: '18.3.1',
                     eager: true
                 },
                 'react-dom': {
                     singleton: true,
-                    requiredVersion: '18.3.1', // Match your ReactDOM version
+                    requiredVersion: '18.3.1',
                     eager: true
                 },
             }

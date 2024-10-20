@@ -1,8 +1,14 @@
 interface ICustomer {
     id?: string;
-    name: string;
-    email: string;
-    phone: string;
+    name?: string;
+    email?: string;
+    phone?: string;
 }
 
-export { ICustomer }
+interface IProduct {
+    id?: string;
+    name?: string;
+    price?: number;
+}
+
+export { ICustomer, IProduct }

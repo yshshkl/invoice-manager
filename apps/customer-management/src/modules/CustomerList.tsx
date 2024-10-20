@@ -1,7 +1,7 @@
 import React, { ReactNode, useContext, useEffect, useState } from 'react';
 import { ICustomer } from 'shared-ui-library/models'
 import { IColumn, Table, Drawer } from 'shared-ui-library/components'
-import useCustomerManager from '../hooks/useCustomerManager';
+import { useCustomerManager } from "shared-ui-library/hooks";
 import AddCustomer from './AddCustomer';
 
 function CustomerList() {
@@ -22,7 +22,6 @@ function CustomerList() {
 
     const fetchCustomers = async () => {
         const customers = await getCustomers()
-        console.log(' customers - ', customers)
         setCustomers(() => [...customers])
     }
 
@@ -30,11 +29,11 @@ function CustomerList() {
 
     }
 
-    const onDeleteClick = (id: string) => {
-        deleteCustomer(id)
+    const onDeleteClick = async (id: string) => {
+        await deleteCustomer(id)
+        await fetchCustomers()
     }
 
-    console.log('customers - ', customers)
     return (
         <>
             <button onClick={() => setOpenAddCustomer(true)}>Add Customer</button>
