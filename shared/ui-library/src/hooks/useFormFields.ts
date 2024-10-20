@@ -9,12 +9,16 @@ const useFormFields = <T extends object>(initialState: FormFields<T>) => {
 
   // Handler to update form fields
   const handleFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
+    const { name, value, id } = event.target;
     setFields(prevFields => ({
       ...prevFields,
-      [name]: value,
+      [name || id]: value
     }));
   };
+
+  const setFormsField = (field: FormFields<T>) => {
+    setFields((prevState) => ({ ...prevState, ...field }))
+  }
 
   // Reset the form fields to the initial state
   const resetFormFields = () => {
@@ -23,6 +27,7 @@ const useFormFields = <T extends object>(initialState: FormFields<T>) => {
 
   return {
     fields,
+    setFormsField,
     handleFieldChange,
     resetFormFields,
   };
