@@ -13,6 +13,10 @@
     "./models": {
       "import": "./dist/models.bundle.js",
       "types": "./dist/models/index.d.ts"
+    },
+    "./hooks": {
+      "import": "./dist/hooks.bundle.js",
+      "types": "./dist/hooks/index.d.ts"
     }
   },
   "scripts": {

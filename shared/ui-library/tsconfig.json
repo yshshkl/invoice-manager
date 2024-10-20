@@ -25,7 +25,7 @@
     },
     "include": [
         "src"
-    ], // Include all files from the src directory
+, "global.d.ts"    ], // Include all files from the src directory
     "exclude": [
         "node_modules",
         "dist",

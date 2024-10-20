@@ -1,3 +1,4 @@
+import { ButtonProps as AntdButtonProps } from "antd";
 import React from "react";
-declare function Button(): React.JSX.Element;
+declare const Button: React.FC<AntdButtonProps>;
 export default Button;

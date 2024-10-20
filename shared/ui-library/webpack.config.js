@@ -3,7 +3,8 @@ const path = require("path");
 module.exports = {
     entry: {
         components: path.resolve(__dirname, './src/components/index.ts'),
-        models: path.resolve(__dirname, './src/models/index.ts')
+        models: path.resolve(__dirname, './src/models/index.ts'),
+        hooks: path.resolve(__dirname, './src/hooks/index.ts')
     },
     output: {
         path: path.resolve(__dirname, "dist"),

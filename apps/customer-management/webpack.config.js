@@ -37,6 +37,7 @@ module.exports = {
             filename: 'remoteEntry.js',
             exposes: {
                 './CustomerList': './src/modules/CustomerList',
+                './AddNewCustomer': './src/modules/AddCustomer',
             },
             remotes: {
                 shared: 'shared@http://localhost:3002/remoteEntry.js',
