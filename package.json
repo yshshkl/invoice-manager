@@ -12,8 +12,8 @@
     "start:app-invoice-management": "pnpm --filter app-invoice-management run start",
     "build:host": "pnpm --filter host run buil",
     "start:host": "pnpm --filter host run start",
-    "start:all": "pnpm run build:shared-ui-library && concurrently \"pnpm install && pnpm run start:app-customers\" \"pnpm install && pnpm run start:app-products\" \"pnpm install && pnpm run start:host\"",
-    "build:all": "pnpm run build:shared-ui-library && concurrently \"pnpm run build:app-customers\" \"pnpm install && pnpm run build:app-products\" \"pnpm run build:host\"",
+    "start:all": "pnpm run build:shared-ui-library && pnpm install && concurrently \"pnpm run start:app-customers\" \"pnpm run start:app-products\" \"pnpm run start:host\"",
+    "build:all": "pnpm run build:shared-ui-library && pnpm install && concurrently \"pnpm run build:app-customers\" \"pnpm run build:app-products\" \"pnpm run build:host\"",
     "build:shared-ui-library": "pnpm --filter shared-ui-library run build"
   },
   "keywords": [],

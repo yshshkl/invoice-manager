@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Flex, Input, Select } from 'antd'
-import { Button, Drawer } from "shared-ui-library/components";
+import { Button, Drawer, Table } from "shared-ui-library/components";
 import { useFormFields, useProductsManager, useCustomerManager, useInvoiceManager } from "shared-ui-library/hooks";
-import { ICustomer, IInvoice, IProduct } from 'shared-ui-library/models';
+import { ICustomer, IInvoice, IProduct, IProductsBill } from 'shared-ui-library/models';
 
 interface AddInvoiceProps {
     visible: boolean;
@@ -35,11 +35,16 @@ const AddInvoices: React.FC<AddInvoiceProps> = ({ visible, onClose, onAddInvoice
         handleFieldChange,
         resetFormFields,
         setFormsField
-    } = useFormFields<IInvoice>({
+    } = useFormFields<IInvoice & IProductsBill>({
         customerId: '',
         title: '',
         amount: '',
         products: [],
+        productId: '',
+        description: '',
+        quantity: 0,
+        price: 0,
+        totalAmount: 0
     })
 
     const handleCustomerChange = (value: string) => {
@@ -48,33 +53,36 @@ const AddInvoices: React.FC<AddInvoiceProps> = ({ visible, onClose, onAddInvoice
     }
 
     const onAddProduct = async () => {
-        await addInvoice(fields)
-        resetFormFields()
-        onAddInvoiceComplete && await onAddInvoiceComplete()
+        const { productId, description, quantity, price, totalAmount } = fields
+        const product = { productId, description, quantity, price, totalAmount }
+
+        const newFields: IInvoice & IProductsBill = { ...fields }
+        newFields.products?.push(product)
+
+        setFormsField(newFields)
     }
 
     console.log(fields)
 
-    return <Drawer visible={visible} title="Add Customer" onClose={onClose} showLoading={isProcessing}>
+    return <Drawer visible={visible} title="Add Invoice" onClose={onClose} showLoading={isProcessing}>
         <Flex vertical gap={20} onInput={handleFieldChange}>
             <Flex vertical><label>Customer</label><Select onChange={handleCustomerChange} id="customerId" options={customers.map((customer) => ({ label: customer.name, value: customer.id }))} /></Flex>
             <Flex vertical style={{ marginTop: '25px' }}>
                 <Flex vertical><label>Title</label><Input name="title" value={fields.title} /></Flex>
                 <h3>Products</h3>
-                <Flex>
+                <Flex vertical>
                     <Flex gap={10}>
-                        <div><Select placeholder='Select Product' options={products.map((product) => ({ label: product.name, value: product.id }))} /></div>
-                        <div><Input placeholder='Description' /></div>
-                        <div><Input placeholder='Quantity' /></div>
-                        <div><Input placeholder='Rate' /></div>
-                        <div><Input placeholder='Total' /></div>
+                        <div><Select id="productId" placeholder='Select Product' value={fields.productId} options={products.map((product) => ({ label: product.name, value: product.id }))} /></div>
+                        <div><Input name="description" placeholder='Description' value={fields.description} /></div>
+                        <div><Input name="quantity" placeholder='Quantity' value={fields.quantity} /></div>
+                        <div><Input name="price" placeholder='Rate' value={fields.price} /></div>
+                        <div><Input name="totalAmount" placeholder='Total' value={fields.totalAmount} /></div>
+                        <Button type='primary' onClick={onAddProduct}>+</Button>
                     </Flex>
-                    <Flex>
-                        <Button type='primary'>Add</Button>
-                    </Flex>
+                    {fields.products && <Table columns={[{ header: 'Product Id', accessor: 'productId' }]} data={fields.products} />}
                 </Flex>
             </Flex>
-            <Flex justify='flex-end'><Button type='primary' onClick={onAddProduct}>Add</Button></Flex>
+            <Flex justify='flex-end'><Button type='primary' >Add Invoice</Button></Flex>
         </Flex>
     </Drawer>
 }

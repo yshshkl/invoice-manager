@@ -15,7 +15,7 @@ function useProductsManager() {
 
             for (let i = 0; i < 20; i++) {
                 products.push({
-                    id: `${i}`,
+                    productId: `${i}`,
                     name: `Name-${i}`,
                     price: (i + 1) * 2
                 })
@@ -44,14 +44,14 @@ function useProductsManager() {
 
     const deleteProduct = async (productId: string) => {
         const products = await getProducts()
-        const updatedProducts = products.filter((product) => product.id !== productId)
+        const updatedProducts = products.filter((product) => product.productId !== productId)
 
         saveToLocalStorage(updatedProducts)
     }
 
     const editProduct = async (updatedProduct: IProduct) => {
         const products = await getProducts()
-        const updatedProducts = products.map((product) => product.id === updatedProduct.id ? updatedProduct : product)
+        const updatedProducts = products.map((product) => product.productId === updatedProduct.productId ? updatedProduct : product)
 
         saveToLocalStorage(updatedProducts)
     }

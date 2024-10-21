@@ -1,6 +1,7 @@
 interface IProductsBill extends IProduct {
+    description?: string;
     quantity?: number;
-    amount?: number;
+    totalAmount?: number;
 }
 interface IInvoice {
     id?: string;
@@ -16,7 +17,7 @@ interface ICustomer {
     phone?: string;
 }
 interface IProduct {
-    id?: string;
+    productId?: string;
     name?: string;
     price?: number;
 }

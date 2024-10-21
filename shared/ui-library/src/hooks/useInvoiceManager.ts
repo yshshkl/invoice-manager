@@ -17,7 +17,7 @@ function useInvoiceManager() {
                 invoices.push({
                     id: `${i}`,
                     title: `Bill to name - ${i}`,
-                    products: [{ id: '1', quantity: 2, amount: 20 }, { id: '2', quantity: 7, amount: 100 }],
+                    products: [{ productId: '1', quantity: 2, totalAmount: 20 }, { productId: '2', quantity: 7, totalAmount: 100 }],
                     amount: 120
                 })
             }
