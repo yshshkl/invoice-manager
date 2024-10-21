@@ -10,6 +10,8 @@ const useFormFields = <T extends object>(initialState: FormFields<T>) => {
   // Handler to update form fields
   const handleFieldChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, id } = event.target;
+    console.log('name - ', name)
+    console.log('id - ', id)
     setFields(prevFields => ({
       ...prevFields,
       [name || id]: value

@@ -35,16 +35,20 @@ const AddInvoices: React.FC<AddInvoiceProps> = ({ visible, onClose, onAddInvoice
         handleFieldChange,
         resetFormFields,
         setFormsField
-    } = useFormFields<IInvoice & IProductsBill>({
+    } = useFormFields<IInvoice>({
         customerId: '',
         title: '',
         amount: '',
-        products: [],
+        products: []
+    })
+
+    const { fields: productFields, handleFieldChange: handleProductsFieldChange, setFormsField: setProductFormsField, resetFormFields: resetProductFormFields } = useFormFields<IProductsBill>({
         productId: '',
         description: '',
-        quantity: 0,
-        price: 0,
-        totalAmount: 0
+        quantity: null,
+        price: null,
+        totalAmount: null,
+        name: ''
     })
 
     const handleCustomerChange = (value: string) => {
@@ -52,34 +56,40 @@ const AddInvoices: React.FC<AddInvoiceProps> = ({ visible, onClose, onAddInvoice
         setFormsField(newFields)
     }
 
+    const handleProductIdChange = (value: string) => {
+        const newFields: IProductsBill = { ...productFields, productId: value }
+        setProductFormsField(newFields)
+    }
+
     const onAddProduct = async () => {
-        const { productId, description, quantity, price, totalAmount } = fields
+        const { productId, description, quantity, price, totalAmount } = productFields
         const product = { productId, description, quantity, price, totalAmount }
 
-        const newFields: IInvoice & IProductsBill = { ...fields }
+        const newFields: IInvoice = { ...fields }
         newFields.products?.push(product)
 
         setFormsField(newFields)
+        resetProductFormFields()
     }
 
     console.log(fields)
 
     return <Drawer visible={visible} title="Add Invoice" onClose={onClose} showLoading={isProcessing}>
-        <Flex vertical gap={20} onInput={handleFieldChange}>
+        <Flex vertical gap={20}>
             <Flex vertical><label>Customer</label><Select onChange={handleCustomerChange} id="customerId" options={customers.map((customer) => ({ label: customer.name, value: customer.id }))} /></Flex>
             <Flex vertical style={{ marginTop: '25px' }}>
-                <Flex vertical><label>Title</label><Input name="title" value={fields.title} /></Flex>
+                <Flex vertical><label>Title</label><Input onInput={handleFieldChange} name="title" value={fields.title} /></Flex>
                 <h3>Products</h3>
                 <Flex vertical>
                     <Flex gap={10}>
-                        <div><Select id="productId" placeholder='Select Product' value={fields.productId} options={products.map((product) => ({ label: product.name, value: product.id }))} /></div>
-                        <div><Input name="description" placeholder='Description' value={fields.description} /></div>
-                        <div><Input name="quantity" placeholder='Quantity' value={fields.quantity} /></div>
-                        <div><Input name="price" placeholder='Rate' value={fields.price} /></div>
-                        <div><Input name="totalAmount" placeholder='Total' value={fields.totalAmount} /></div>
+                        <div><Select onChange={handleProductIdChange} placeholder='Select Product' value={productFields.productId} options={products.map((product) => ({ label: product.name, value: product.id }))} /></div>
+                        <div><Input onInput={handleProductsFieldChange} name="description" placeholder='Description' value={productFields.description} /></div>
+                        <div><Input onInput={handleProductsFieldChange} name="quantity" placeholder='Quantity' value={productFields.quantity} /></div>
+                        <div><Input onInput={handleProductsFieldChange} name="price" placeholder='Rate' value={productFields.price} /></div>
+                        <div><Input onInput={handleProductsFieldChange} name="totalAmount" placeholder='Total' value={productFields.totalAmount} /></div>
                         <Button type='primary' onClick={onAddProduct}>+</Button>
                     </Flex>
-                    {fields.products && <Table columns={[{ header: 'Product Id', accessor: 'productId' }]} data={fields.products} />}
+                    {fields.products && <Table columns={[{ header: 'Product Id', accessor: 'productId' }, { header: 'Description', accessor: 'description' }, { header: 'Quantity', accessor: 'quantity' }, { header: 'Rate', accessor: 'price' }, { header: 'Total', accessor: 'totalAmount' }]} data={fields.products} />}
                 </Flex>
             </Flex>
             <Flex justify='flex-end'><Button type='primary' >Add Invoice</Button></Flex>

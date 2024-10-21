@@ -26,6 +26,7 @@ const Table = <T,>({ columns, data, showActions, onEditClick, onDeleteClick }: I
                     {columns.map((column) => (
                         <th key={column.header}>{column.header}</th>
                     ))}
+                    {showActions && <th>Actions</th>}
                 </tr>
             </thead>
             <tbody>

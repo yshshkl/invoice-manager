@@ -10,9 +10,11 @@ const Invoices: React.FC = () => {
     const [openAddInvoice, setOpenAddInvoice] = useState(false)
 
     const columns: IColumn<IInvoice>[] = [
-        { header: 'ID', accessor: 'id' as keyof IInvoice },
-        { header: 'Title', accessor: 'title' as keyof IInvoice }
-    ];
+        { header: 'Id', accessor: 'id' as keyof IInvoice },
+        { header: 'Customer', accessor: 'customerId' as keyof IInvoice },
+        { header: 'Title', accessor: 'title' as keyof IInvoice },
+        { header: 'Amount', accessor: 'amount' as keyof IInvoice }];
+
 
     useEffect(() => {
         fetchInvoices()
@@ -25,6 +27,7 @@ const Invoices: React.FC = () => {
 
     const fetchInvoices = async () => {
         const invoices = await getInvoices()
+        console.log('invoices - ', invoices)
         setInvoices(() => [...invoices])
     }
 
