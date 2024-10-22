@@ -5,6 +5,7 @@ interface CustomDrawerProps {
     children: ReactNode;
     title?: string;
     showLoading?: boolean;
+    variant?: 'm' | 'l';
 }
 declare const Drawer: React.FC<CustomDrawerProps>;
 export default Drawer;

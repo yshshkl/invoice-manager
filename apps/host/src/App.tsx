@@ -1,6 +1,8 @@
 
-import React, { Suspense } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import React, { Suspense, useEffect } from 'react';
+import { Link, Route, Routes } from 'react-router-dom';
+import classNames from './App.css'
+import { useLocation } from 'react-router-dom';
 
 interface AddCustomerProps {
     visible: boolean;
@@ -42,14 +44,30 @@ const RemoteAddNewCustomer: React.LazyExoticComponent<React.ComponentType<AddCus
 )
 
 function App() {
+    const location = useLocation();
+
+    const getSelectedNavClassName = (path: string) => {
+        return location.pathname.includes(path) ? classNames.selected : ''
+    }
+
     return (
         <Suspense fallback={<div>Loading...</div>}>
-            <Routes>
-                <Route path='/customers' element={<RemoteCustomerList />} />
-                <Route path='/products' element={<RemoteProductsList />} />
-                <Route path='/invoices' element={<RemoteInvoices />} />
-                <Route path='/addCustomer' element={<RemoteAddNewCustomer visible={true} onClose={() => { }} />} />
-            </Routes>
+            <header>
+                <h1>Shop Management</h1>
+            </header>
+            <nav className={classNames.navigation}>
+                <Link className={getSelectedNavClassName('customers')} to="/customers">Customers</Link>
+                <Link className={getSelectedNavClassName('products')} to="/products">Products</Link>
+                <Link className={getSelectedNavClassName('invoices')} to="/invoices">Invoices</Link>
+            </nav>
+            <section className={classNames.mainBody}>
+                <Routes>
+                    <Route path='/customers' element={<RemoteCustomerList />} />
+                    <Route path='/products' element={<RemoteProductsList />} />
+                    <Route path='/invoices' element={<RemoteInvoices />} />
+                    <Route path='/addCustomer' element={<RemoteAddNewCustomer visible={true} onClose={() => { }} />} />
+                </Routes>
+            </section>
         </Suspense>
     );
 }

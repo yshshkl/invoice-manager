@@ -1,8 +1,9 @@
 import React, { ReactNode, useContext, useEffect, useState } from 'react';
 import { ICustomer } from 'shared-ui-library/models'
-import { IColumn, Table, Drawer } from 'shared-ui-library/components'
+import { IColumn, Table, Drawer, Button } from 'shared-ui-library/components'
 import { useCustomerManager } from "shared-ui-library/hooks";
 import AddCustomer from './AddCustomer';
+import { Flex } from 'antd';
 
 function CustomerList() {
     const [customers, setCustomers] = useState<ICustomer[]>([])
@@ -35,8 +36,9 @@ function CustomerList() {
     }
 
     return (
-        <>
-            <button onClick={() => setOpenAddCustomer(true)}>Add Customer</button>
+        <Flex vertical gap={20}>
+            <h2>Customers</h2>
+            <Flex justify='flex-end'><Button type='primary' onClick={() => setOpenAddCustomer(true)}>Add Customer</Button></Flex>
             <Table
                 columns={columns}
                 data={customers}
@@ -45,7 +47,7 @@ function CustomerList() {
                 onDeleteClick={onDeleteClick}
             />
             <AddCustomer visible={openAddCustomer} onClose={() => setOpenAddCustomer(false)} onAddCustomerComplete={fetchCustomers} />
-        </>
+        </Flex>
     )
 }
 

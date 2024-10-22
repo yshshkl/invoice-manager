@@ -1,0 +1,37 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+p, h1,h2,h3,h4 {
+    margin: 0;
+}
+
+header {
+    padding: 25px;
+}
+
+.navigation {
+    background-color: #fafafa;
+    display: flex;
+}
+
+
+.navigation a {
+    padding: 25px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+}
+
+.selected {
+    background-color: #ebebeb;
+}
+
+.navigation a:hover {
+    background-color: #ebebeb;
+}
+
+.mainBody {
+    padding: 25px;
+}

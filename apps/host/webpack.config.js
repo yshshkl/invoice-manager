@@ -19,8 +19,19 @@ module.exports = {
                 exclude: /node_modules/,
             },
             {
-                test: /\.css$/i,
-                use: ['style-loader', 'css-loader'],
+                test: /\.css$/,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            modules: {
+                                namedExport: false,
+                                localIdentName: "[hash:base64:5]",
+                            },
+                        },
+                    }
+                ]
             },
         ],
     },

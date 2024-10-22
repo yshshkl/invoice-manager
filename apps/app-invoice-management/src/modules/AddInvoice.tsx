@@ -72,27 +72,30 @@ const AddInvoices: React.FC<AddInvoiceProps> = ({ visible, onClose, onAddInvoice
         resetProductFormFields()
     }
 
-    console.log(fields)
+    const onAddInvoice = () => {
+        addInvoice(fields)
+        resetFormFields()
+    }
 
     return <Drawer visible={visible} title="Add Invoice" onClose={onClose} showLoading={isProcessing}>
         <Flex vertical gap={20}>
             <Flex vertical><label>Customer</label><Select onChange={handleCustomerChange} id="customerId" options={customers.map((customer) => ({ label: customer.name, value: customer.id }))} /></Flex>
-            <Flex vertical style={{ marginTop: '25px' }}>
+            <Flex vertical gap={20} style={{ marginTop: '25px' }}>
                 <Flex vertical><label>Title</label><Input onInput={handleFieldChange} name="title" value={fields.title} /></Flex>
                 <h3>Products</h3>
-                <Flex vertical>
-                    <Flex gap={10}>
+                <Flex vertical gap={20}>
+                    <Flex gap={10} onInput={handleProductsFieldChange}>
                         <div><Select onChange={handleProductIdChange} placeholder='Select Product' value={productFields.productId} options={products.map((product) => ({ label: product.name, value: product.id }))} /></div>
-                        <div><Input onInput={handleProductsFieldChange} name="description" placeholder='Description' value={productFields.description} /></div>
-                        <div><Input onInput={handleProductsFieldChange} name="quantity" placeholder='Quantity' value={productFields.quantity} /></div>
-                        <div><Input onInput={handleProductsFieldChange} name="price" placeholder='Rate' value={productFields.price} /></div>
-                        <div><Input onInput={handleProductsFieldChange} name="totalAmount" placeholder='Total' value={productFields.totalAmount} /></div>
+                        <div><Input name="description" placeholder='Description' value={productFields.description} /></div>
+                        <div><Input name="quantity" placeholder='Quantity' value={productFields.quantity} /></div>
+                        <div><Input name="price" placeholder='Rate' value={productFields.price} /></div>
+                        <div><Input name="totalAmount" placeholder='Total' value={productFields.totalAmount} /></div>
                         <Button type='primary' onClick={onAddProduct}>+</Button>
                     </Flex>
                     {fields.products && <Table columns={[{ header: 'Product Id', accessor: 'productId' }, { header: 'Description', accessor: 'description' }, { header: 'Quantity', accessor: 'quantity' }, { header: 'Rate', accessor: 'price' }, { header: 'Total', accessor: 'totalAmount' }]} data={fields.products} />}
                 </Flex>
             </Flex>
-            <Flex justify='flex-end'><Button type='primary' >Add Invoice</Button></Flex>
+            <Flex justify='flex-end'><Button type='primary' onClick={onAddInvoice}>Add Invoice</Button></Flex>
         </Flex>
     </Drawer>
 }

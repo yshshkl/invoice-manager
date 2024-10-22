@@ -35,7 +35,7 @@ const Table = <T,>({ columns, data, showActions, onEditClick, onDeleteClick }: I
                         {columns.map((column) => (
                             column.onRender ? <td key={column.accessor as string}>{column.onRender()}</td> : <td key={column.accessor as string}>{row[column.accessor] as ReactNode}</td>
                         ))}
-                        {showActions && <td><Flex gap={10}>{onEditClick && <EditOutlined onClick={() => onEditClick(row['id'])} />}{onDeleteClick && <DeleteOutlined onClick={() => onDeleteClick(row['id'])} />}</Flex></td>}
+                        {showActions && <td><Flex gap={20}>{onEditClick && <EditOutlined onClick={() => onEditClick(row['id'])} />}{onDeleteClick && <DeleteOutlined onClick={() => onDeleteClick(row['id'])} />}</Flex></td>}
                     </tr>
                 ))}
             </tbody>

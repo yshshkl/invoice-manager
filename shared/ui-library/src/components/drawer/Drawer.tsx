@@ -10,6 +10,7 @@ interface CustomDrawerProps {
     children: ReactNode;
     title?: string;
     showLoading?: boolean;
+    variant?: 'm' | 'l';
 }
 
 const Drawer: React.FC<CustomDrawerProps> = ({
@@ -17,14 +18,15 @@ const Drawer: React.FC<CustomDrawerProps> = ({
     onClose,
     children,
     title,
-    showLoading
+    showLoading,
+    variant
 }) => {
     if (!visible) return null
 
     return ReactDOM.createPortal(
         <div className={classNames.drawer}>
             <div className={classNames.overlay}></div>
-            <div className={classNames.content}>
+            <div className={`${classNames.content}`}>
                 {showLoading && <Flex className={classNames.loader} vertical align="center"><LoadingOutlined spin /></Flex>}
                 <div className={classNames.header}>
                     <h3>{title}</h3>
