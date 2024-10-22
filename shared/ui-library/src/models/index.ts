@@ -1,9 +1,3 @@
-interface IProductsBill extends IProduct {
-    description?: string;
-    quantity?: number;
-    totalAmount?: number;
-}
-
 interface IInvoice {
     id?: string;
     customerId?: string;
@@ -23,6 +17,12 @@ interface IProduct {
     productId?: string;
     name?: string;
     price?: number;
+}
+
+interface IProductsBill extends IProduct {
+    description?: string;
+    quantity?: number;
+    totalAmount?: number;
 }
 
 export { ICustomer, IProduct, IInvoice, IProductsBill }

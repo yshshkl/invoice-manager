@@ -5,10 +5,16 @@ import { useCustomerManager } from "shared-ui-library/hooks";
 import AddCustomer from './AddCustomer';
 import { Flex } from 'antd';
 
+interface ICustomerWizard {
+    isOpen: boolean;
+    mode?: 'Edit' | 'Add';
+    data?: ICustomer;
+}
+
 function CustomerList() {
     const [customers, setCustomers] = useState<ICustomer[]>([])
-    const { getCustomers, deleteCustomer } = useCustomerManager()
-    const [openAddCustomer, setOpenAddCustomer] = useState(false)
+    const { getCustomers, deleteCustomer, addCustomer, editCustomer } = useCustomerManager()
+    const [openAddCustomer, setOpenAddCustomer] = useState<ICustomerWizard>({ isOpen: false })
 
     const columns: IColumn<ICustomer>[] = [
         { header: 'ID', accessor: 'id' as keyof ICustomer },
@@ -24,10 +30,15 @@ function CustomerList() {
     const fetchCustomers = async () => {
         const customers = await getCustomers()
         setCustomers(() => [...customers])
+        manageCustomerWizard({ isOpen: false })
     }
 
-    const onEditClick = (id: string) => {
 
+
+    const onEditClick = (id: string) => {
+        const customer: ICustomer | undefined = customers.find((customer) => customer.id === id)
+
+        manageCustomerWizard({ isOpen: true, mode: 'Edit', data: customer })
     }
 
     const onDeleteClick = async (id: string) => {
@@ -35,10 +46,14 @@ function CustomerList() {
         await fetchCustomers()
     }
 
+    const manageCustomerWizard = (data: ICustomerWizard) => {
+        setOpenAddCustomer((prev: ICustomerWizard) => ({ ...prev, ...data }))
+    }
+
     return (
         <Flex vertical gap={20}>
             <h2>Customers</h2>
-            <Flex justify='flex-end'><Button type='primary' onClick={() => setOpenAddCustomer(true)}>Add Customer</Button></Flex>
+            <Flex justify='flex-end'><Button type='primary' onClick={() => manageCustomerWizard({ isOpen: true, mode: 'Add', data: undefined })}>Add Customer</Button></Flex>
             <Table
                 columns={columns}
                 data={customers}
@@ -46,7 +61,7 @@ function CustomerList() {
                 onEditClick={onEditClick}
                 onDeleteClick={onDeleteClick}
             />
-            <AddCustomer visible={openAddCustomer} onClose={() => setOpenAddCustomer(false)} onAddCustomerComplete={fetchCustomers} />
+            {openAddCustomer.isOpen && <AddCustomer visible onClose={() => manageCustomerWizard({ isOpen: false })} onAddCustomerComplete={fetchCustomers} mode={openAddCustomer.mode} customerData={openAddCustomer.data} />}
         </Flex>
     )
 }
