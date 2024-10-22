@@ -4,27 +4,6 @@ import { IProduct } from '../models'
 function useProductsManager() {
     const [isProcessing, setIsProcessing] = useState<boolean>(false)
 
-    // On first load, if local storage has customers return that or add random customers in local storage.
-    useEffect(() => {
-        const storedProducts: string | null = localStorage.getItem('products');
-
-        if (storedProducts && storedProducts.length > 0) {
-            getProducts()
-        } else {
-            let products: IProduct[] = []
-
-            for (let i = 0; i < 20; i++) {
-                products.push({
-                    productId: `${i}`,
-                    name: `Name-${i}`,
-                    price: (i + 1) * 2
-                })
-            }
-
-            saveToLocalStorage(products)
-        }
-    }, [])
-
     const getProducts = async (): Promise<IProduct[]> => {
         const storedProducts: string | null = localStorage.getItem('products');
 
@@ -36,8 +15,8 @@ function useProductsManager() {
     }
 
     const addProduct = async (product: IProduct) => {
-        const products = await getProducts()
-        const updatedProducts = [...products, { id: `${products.length}`, ...product }]
+        const products: IProduct[] = await getProducts()
+        const updatedProducts: IProduct[] = [...products, { productId: `${products.length}`, ...product }]
 
         saveToLocalStorage(updatedProducts)
     }

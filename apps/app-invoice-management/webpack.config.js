@@ -38,6 +38,10 @@ module.exports = {
             exposes: {
                 './Invoices': './src/modules/Invoices.tsx',
             },
+            remotes: {
+                customersMf: 'customersMf@http://localhost:3004/remoteEntry.js',
+                productsMf: 'productsMf@http://localhost:3003/remoteEntry.js',
+            },
             shared: {
                 react: {
                     singleton: true,

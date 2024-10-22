@@ -4,7 +4,7 @@ import { Button, Drawer } from "shared-ui-library/components";
 import { useFormFields, useCustomerManager } from "shared-ui-library/hooks";
 import { ICustomer } from 'shared-ui-library/models';
 
-interface AddCustomerProps {
+export interface AddCustomerProps {
     visible: boolean;
     onClose: () => void;
     onAddCustomerComplete?: () => void;
@@ -29,7 +29,7 @@ const AddCustomer: React.FC<AddCustomerProps> = ({ visible, onClose, onAddCustom
         onAddCustomerComplete && await onAddCustomerComplete()
     }
 
-    return <Drawer visible={visible} title="Add Customer" onClose={onClose} showLoading={isProcessing}>
+    return <Drawer visible={visible} title="Add New Customer" onClose={onClose} showLoading={isProcessing}>
         <Flex vertical gap={20} onInput={handleFieldChange}>
             <Flex vertical><label>Name</label><Input name="name" value={fields.name} /></Flex>
             <Flex vertical><label>Email</label><Input name="email" value={fields.email} /></Flex>

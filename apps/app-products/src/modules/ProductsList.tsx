@@ -11,7 +11,7 @@ function ProductsList() {
     const [openAddCustomer, setOpenAddCustomer] = useState(false)
 
     const columns: IColumn<IProduct>[] = [
-        { header: 'ID', accessor: 'id' as keyof IProduct },
+        { header: 'ID', accessor: 'productId' as keyof IProduct },
         { header: 'Name', accessor: 'name' as keyof IProduct },
         { header: 'Price', accessor: 'price' as keyof IProduct },
     ];

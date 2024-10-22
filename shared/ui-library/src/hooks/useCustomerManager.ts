@@ -4,28 +4,6 @@ import { ICustomer } from '../models'
 function useCustomerManager() {
     const [isProcessing, setIsProcessing] = useState<boolean>(false)
 
-    // On first load, if local storage has customers return that or add random customers in local storage.
-    useEffect(() => {
-        const storedCustomers: string | null = localStorage.getItem('customers');
-
-        if (storedCustomers && storedCustomers.length > 0) {
-            getCustomers()
-        } else {
-            let customers: ICustomer[] = []
-
-            for (let i = 0; i < 20; i++) {
-                customers.push({
-                    id: `${i}`,
-                    name: `Name-${i}`,
-                    email: `abcd@abc.abc${i}`,
-                    phone: `99999999`
-                })
-            }
-
-            saveToLocalStorage(customers)
-        }
-    }, [])
-
     const getCustomers = async (): Promise<ICustomer[]> => {
         const storedCustomers: string | null = localStorage.getItem('customers');
 

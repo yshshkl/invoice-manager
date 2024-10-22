@@ -3,7 +3,8 @@ import { Table, IColumn, Button } from 'shared-ui-library/components';
 import { useInvoiceManager, useProductsManager } from "shared-ui-library/hooks";
 import { IInvoice, IProduct } from 'shared-ui-library/models';
 import AddInvoices from './AddInvoice';
-import { Flex } from 'antd';
+import { Flex, Tabs } from 'antd';
+import TabPane from 'antd/es/tabs/TabPane';
 
 const Invoices: React.FC = () => {
     const [invoices, setInvoices] = useState<IInvoice[]>([])
@@ -35,15 +36,20 @@ const Invoices: React.FC = () => {
     return (
         <Flex vertical gap={20}>
             <h2>Invoices</h2>
-            <Flex justify='flex-end'><Button type='primary' onClick={() => setOpenAddInvoice(true)}>Add Invoice</Button></Flex>
-            <Table
-                columns={columns}
-                data={invoices}
-                showActions
-                onEditClick={() => { }}
-                onDeleteClick={onDeleteProduct}
-            />
-            <AddInvoices visible={openAddInvoice} onClose={() => setOpenAddInvoice(false)} onAddInvoiceComplete={fetchInvoices} />
+            <Tabs defaultActiveKey="1">
+                <TabPane tab="Invoices" key="1">
+                    <Table
+                        columns={columns}
+                        data={invoices}
+                        showActions
+                        onEditClick={() => { }}
+                        onDeleteClick={onDeleteProduct}
+                    />
+                </TabPane>
+                <TabPane tab="Add New Invoice" key="2">
+                    <AddInvoices visible={openAddInvoice} onClose={() => setOpenAddInvoice(false)} onAddInvoiceComplete={fetchInvoices} />
+                </TabPane>
+            </Tabs>
         </Flex>
     )
 }
