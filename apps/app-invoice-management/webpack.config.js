@@ -7,10 +7,10 @@ module.exports = {
     mode: 'development',
     devServer: {
         historyApiFallback: true,
-        port: process.env.PORT || 3007,
+        port: process.env.PORT || 3003,
     },
     output: {
-        publicPath: `http://localhost:${process.env.PORT || 3007}/`,
+        publicPath: `http://localhost:${process.env.PORT || 3003}/`,
     },
     module: {
         rules: [
@@ -39,8 +39,8 @@ module.exports = {
                 './Invoices': './src/modules/Invoices.tsx',
             },
             remotes: {
-                customersMf: 'customersMf@http://localhost:3004/remoteEntry.js',
-                productsMf: 'productsMf@http://localhost:3003/remoteEntry.js',
+                customersMf: 'customersMf@http://localhost:3001/remoteEntry.js',
+                productsMf: 'productsMf@http://localhost:3002/remoteEntry.js',
             },
             shared: {
                 react: {

@@ -61,6 +61,14 @@ importers:
         specifier: 5.1.0
         version: 5.1.0(webpack-cli@5.1.4)(webpack@5.95.0)
 
+  apps/app-customer-management:
+    dependencies:
+      shared-ui-library:
+        specifier: workspace:*
+        version: link:../../shared/ui-library
+
+  apps/app-host: {}
+
   apps/app-invoice-management:
     dependencies:
       shared-ui-library:
@@ -72,14 +80,6 @@ importers:
       shared-ui-library:
         specifier: workspace:*
         version: link:../../shared/ui-library
-
-  apps/customer-management:
-    dependencies:
-      shared-ui-library:
-        specifier: workspace:*
-        version: link:../../shared/ui-library
-
-  apps/host: {}
 
   shared/ui-library: {}
 

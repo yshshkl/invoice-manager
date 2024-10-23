@@ -6,10 +6,10 @@ module.exports = {
     mode: 'development',
     devServer: {
         historyApiFallback: true,
-        port: process.env.PORT || 3005,
+        port: process.env.PORT || 3000,
     },
     output: {
-        publicPath: `http://localhost:${process.env.PORT || 3005}/`,
+        publicPath: `http://localhost:${process.env.PORT || 3000}/`,
     },
     module: {
         rules: [
@@ -45,19 +45,19 @@ module.exports = {
         new ModuleFederationPlugin({
             name: 'host',
             remotes: {
-                customersMf: 'customersMf@http://localhost:3004/remoteEntry.js',
-                productsMf: 'productsMf@http://localhost:3003/remoteEntry.js',
-                invoicesMf: 'invoicesMf@http://localhost:3007/remoteEntry.js'
+                customersMf: 'customersMf@http://localhost:3001/remoteEntry.js',
+                productsMf: 'productsMf@http://localhost:3002/remoteEntry.js',
+                invoicesMf: 'invoicesMf@http://localhost:3003/remoteEntry.js'
             },
             shared: {
                 react: {
                     singleton: true,
-                    requiredVersion: '18.3.1', // Match your React version
+                    requiredVersion: '18.3.1',
                     eager: true
                 },
                 'react-dom': {
                     singleton: true,
-                    requiredVersion: '18.3.1', // Match your ReactDOM version
+                    requiredVersion: '18.3.1',
                     eager: true
                 },
             }

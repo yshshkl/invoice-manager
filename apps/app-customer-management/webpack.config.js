@@ -7,10 +7,10 @@ module.exports = {
     mode: 'development',
     devServer: {
         historyApiFallback: true,
-        port: process.env.PORT || 3004,
+        port: process.env.PORT || 3001,
     },
     output: {
-        publicPath: `http://localhost:${process.env.PORT || 3004}/`,
+        publicPath: `http://localhost:${process.env.PORT || 3001}/`,
     },
     module: {
         rules: [
