@@ -37,7 +37,7 @@ module.exports = {
             filename: 'remoteEntry.js',
             exposes: {
                 './ProductsList': './src/modules/ProductsList.tsx',
-                './AddNewProduct': './src/modules/AddProduct.tsx',
+                './ProductWizard': './src/modules/ProductWizard.tsx',
             },
             shared: {
                 react: {

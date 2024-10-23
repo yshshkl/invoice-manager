@@ -12,7 +12,7 @@ export interface AddCustomerProps {
     onAddCustomerComplete?: () => void;
 }
 
-const AddCustomer: React.FC<AddCustomerProps> = ({ visible, onClose, onAddCustomerComplete, customerData, mode }) => {
+const CustomerWizard: React.FC<AddCustomerProps> = ({ visible, onClose, onAddCustomerComplete, customerData, mode }) => {
     const initialState = {
         id: '',
         name: '',
@@ -60,4 +60,4 @@ const AddCustomer: React.FC<AddCustomerProps> = ({ visible, onClose, onAddCustom
     </Drawer>
 }
 
-export default AddCustomer
+export default CustomerWizard

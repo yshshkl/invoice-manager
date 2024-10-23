@@ -5,14 +5,14 @@ import { useFormFields, useProductsManager, useCustomerManager, useInvoiceManage
 import { ICustomer, IInvoice, IProduct, IProductsBill } from 'shared-ui-library/models';
 
 const RemoteAddNewCustomer = React.lazy(() =>
-    import('customersMf/AddNewCustomer').catch((err) => {
+    import('customersMf/CustomerWizard').catch((err) => {
         console.error('Failed to load the remote module:', err);
         return { default: () => <div>Error loading component</div> };
     })
 );
 
 const RemoteAddNewProduct = React.lazy(() =>
-    import('productsMf/AddNewProduct').catch((err) => {
+    import('productsMf/ProductWizard').catch((err) => {
         console.error('Failed to load the remote module:', err);
         return { default: () => <div>Error loading component</div> };
     })
@@ -149,8 +149,8 @@ const AddInvoices: React.FC<AddInvoiceProps> = ({ visible, onClose, onAddInvoice
                 <Button type='primary' onClick={onAddInvoice}>Add Invoice</Button>
             </Flex>
         </Flex>
-        <RemoteAddNewCustomer visible={openAddCustomer} onClose={() => setOpenAddCustomer(false)} onAddCustomerComplete={fetchCustomers} />
-        <RemoteAddNewProduct visible={openAddProduct} onClose={() => setOpenAddProduct(false)} onAddProductComplete={fetchProducts} />
+        {openAddCustomer && <RemoteAddNewCustomer visible onClose={() => setOpenAddCustomer(false)} onAddCustomerComplete={fetchCustomers} mode='Add' />}
+        {openAddProduct && <RemoteAddNewProduct visible onClose={() => setOpenAddProduct(false)} onAddProductComplete={fetchProducts} mode='Add' />}
     </>
 }
 

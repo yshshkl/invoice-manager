@@ -1,7 +1,7 @@
 import React, { ReactNode, useContext, useEffect, useState } from 'react';
 import { ICustomer, IProduct } from 'shared-ui-library/models'
 import { IColumn, Table, Drawer, Button } from 'shared-ui-library/components'
-import AddProduct from './AddProduct';
+import ProductWizard from './ProductWizard';
 import { useProductsManager } from "shared-ui-library/hooks";
 import { Flex } from 'antd';
 
@@ -58,7 +58,7 @@ function ProductsList() {
                 onEditClick={onEditClick}
                 onDeleteClick={onDeleteProduct}
             />
-            {productWizard.isOpen && <AddProduct visible onClose={() => manageProductWizard({ isOpen: false })} onAddProductComplete={fetchProducts} mode={productWizard.mode} productData={productWizard.data} />}
+            {productWizard.isOpen && <ProductWizard visible onClose={() => manageProductWizard({ isOpen: false })} onAddProductComplete={fetchProducts} mode={productWizard.mode} productData={productWizard.data} />}
         </Flex>
     )
 }

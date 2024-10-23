@@ -42,7 +42,6 @@ const Invoices: React.FC = () => {
                         columns={columns}
                         data={invoices}
                         showActions
-                        onEditClick={() => { }}
                         onDeleteClick={onDeleteProduct}
                     />
                 </TabPane>

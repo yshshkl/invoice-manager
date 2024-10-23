@@ -1,4 +1,4 @@
-interface AddCustomerProps {
+interface CustomerWizardProps {
   mode?: 'Add' | 'Edit',
   customerData?: ICustomer,
   visible: boolean;
@@ -6,7 +6,7 @@ interface AddCustomerProps {
   onAddCustomerComplete?: () => void;
 }
 
-interface AddProductsProps {
+interface ProductWizardProps {
   mode?: 'Add' | 'Edit',
   productData?: IProduct,
   visible: boolean;
@@ -14,12 +14,12 @@ interface AddProductsProps {
   onAddProductComplete?: () => void;
 }
 
-declare module 'customersMf/AddNewCustomer' {
-  const AddNewCustomer: React.ComponentType<AddCustomerProps>;
-  export default AddNewCustomer;
+declare module 'customersMf/CustomerWizard' {
+  const CustomerWizard: React.ComponentType<CustomerWizardProps>;
+  export default CustomerWizard;
 }
 
-declare module 'productsMf/AddNewProduct' {
-  const AddNewProduct: React.ComponentType<AddProductsProps>;
-  export default ProductsList;
+declare module 'productsMf/ProductWizard' {
+  const ProductWizard: React.ComponentType<ProductWizardProps>;
+  export default ProductWizard;
 }

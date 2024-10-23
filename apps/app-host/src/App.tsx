@@ -4,7 +4,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 import classNames from './App.css'
 import { useLocation } from 'react-router-dom';
 
-interface AddCustomerProps {
+interface CustomerWizardProps {
     visible: boolean;
     onClose: () => void;
     onAddCustomerComplete?: () => void;
@@ -31,11 +31,11 @@ const RemoteInvoices = React.lazy(() =>
     })
 );
 
-const RemoteAddNewCustomer: React.LazyExoticComponent<React.ComponentType<AddCustomerProps>> = React.lazy(() =>
-    import('customersMf/AddNewCustomer')
+const RemoteAddNewCustomer: React.LazyExoticComponent<React.ComponentType<CustomerWizardProps>> = React.lazy(() =>
+    import('customersMf/CustomerWizard')
         .then((module) => {
             console.log('module - ', module)
-            return { default: module.default as React.ComponentType<AddCustomerProps> }
+            return { default: module.default as React.ComponentType<CustomerWizardProps> }
         })
         .catch((err) => {
             console.error('Failed to load the remote module:', err);
@@ -53,7 +53,7 @@ function App() {
     return (
         <Suspense fallback={<div>Loading...</div>}>
             <header>
-                <h1>Shop Management</h1>
+                <h1>Store Management</h1>
             </header>
             <nav className={classNames.navigation}>
                 <Link className={getSelectedNavClassName('customers')} to="/customers">Customers</Link>

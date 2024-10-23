@@ -75,7 +75,7 @@ importers:
         specifier: workspace:*
         version: link:../../shared/ui-library
 
-  apps/app-products:
+  apps/app-product-management:
     dependencies:
       shared-ui-library:
         specifier: workspace:*

@@ -12,7 +12,7 @@ export interface AddProductsProps {
     onAddProductComplete?: () => void;
 }
 
-const AddProducts: React.FC<AddProductsProps> = ({ visible, onClose, onAddProductComplete, mode, productData }) => {
+const ProductWizard: React.FC<AddProductsProps> = ({ visible, onClose, onAddProductComplete, mode, productData }) => {
     const initialState: IProduct = {
         id: '',
         name: '',
@@ -58,4 +58,4 @@ const AddProducts: React.FC<AddProductsProps> = ({ visible, onClose, onAddProduc
     </Drawer>
 }
 
-export default AddProducts
+export default ProductWizard

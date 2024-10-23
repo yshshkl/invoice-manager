@@ -3,9 +3,9 @@ declare module 'customersMf/CustomerList' {
   export default CustomerList;
 }
 
-declare module 'customersMf/AddNewCustomer' {
-  const AddNewCustomer: React.ComponentType;
-  export default AddNewCustomer;
+declare module 'customersMf/CustomerWizard' {
+  const CustomerWizard: React.ComponentType;
+  export default CustomerWizard;
 }
 
 declare module 'productsMf/ProductsList' {

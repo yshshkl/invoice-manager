@@ -2,7 +2,7 @@ import React, { ReactNode, useContext, useEffect, useState } from 'react';
 import { ICustomer } from 'shared-ui-library/models'
 import { IColumn, Table, Drawer, Button } from 'shared-ui-library/components'
 import { useCustomerManager } from "shared-ui-library/hooks";
-import AddCustomer from './AddCustomer';
+import CustomerWizard from './CustomerWizard';
 import { Flex } from 'antd';
 
 interface ICustomerWizard {
@@ -43,6 +43,10 @@ function CustomerList() {
     const onEditClick = (id: string) => {
         const customer: ICustomer | undefined = customers.find((customer) => customer.id === id)
 
+        if (!customer) {
+            return;
+        }
+
         manageCustomerWizard({ isOpen: true, mode: 'Edit', data: customer })
     }
 
@@ -66,7 +70,7 @@ function CustomerList() {
                 onEditClick={onEditClick}
                 onDeleteClick={onDeleteClick}
             />
-            {customerWizard.isOpen && <AddCustomer visible onClose={() => manageCustomerWizard({ isOpen: false })} onAddCustomerComplete={fetchCustomers} mode={customerWizard.mode} customerData={customerWizard.data} />}
+            {customerWizard.isOpen && <CustomerWizard visible onClose={() => manageCustomerWizard({ isOpen: false })} onAddCustomerComplete={fetchCustomers} mode={customerWizard.mode} customerData={customerWizard.data} />}
         </Flex>
     )
 }
