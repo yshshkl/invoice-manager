@@ -12,7 +12,7 @@ interface ICustomer {
     phone?: string;
 }
 interface IProduct {
-    productId?: string;
+    id?: string;
     name?: string;
     price?: number;
 }

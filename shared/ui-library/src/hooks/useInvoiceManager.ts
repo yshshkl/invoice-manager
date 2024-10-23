@@ -16,7 +16,7 @@ function useInvoiceManager() {
 
     const addInvoice = async (invoice: IInvoice) => {
         const invoices = await getInvoices()
-        const updatedInvoices = [...invoices, { id: `${invoices.length}`, ...invoice }]
+        const updatedInvoices = [...invoices, { ...invoice, id: `${invoices.length + 1}` }]
 
         saveToLocalStorage(updatedInvoices)
     }

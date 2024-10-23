@@ -16,21 +16,21 @@ function useProductsManager() {
 
     const addProduct = async (product: IProduct) => {
         const products: IProduct[] = await getProducts()
-        const updatedProducts: IProduct[] = [...products, { productId: `${products.length}`, ...product }]
+        const updatedProducts: IProduct[] = [...products, { ...product, id: `${products.length + 1}` }]
 
         saveToLocalStorage(updatedProducts)
     }
 
-    const deleteProduct = async (productId: string) => {
+    const deleteProduct = async (id: string) => {
         const products = await getProducts()
-        const updatedProducts = products.filter((product) => product.productId !== productId)
+        const updatedProducts = products.filter((product) => product.id !== id)
 
         saveToLocalStorage(updatedProducts)
     }
 
     const editProduct = async (updatedProduct: IProduct) => {
         const products = await getProducts()
-        const updatedProducts = products.map((product) => product.productId === updatedProduct.productId ? updatedProduct : product)
+        const updatedProducts = products.map((product) => product.id === updatedProduct.id ? updatedProduct : product)
 
         saveToLocalStorage(updatedProducts)
     }

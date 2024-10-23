@@ -11,29 +11,34 @@ interface ICustomerWizard {
     data?: ICustomer;
 }
 
+const columns: IColumn<ICustomer>[] = [
+    { header: 'ID', accessor: 'id' as keyof ICustomer },
+    { header: 'Name', accessor: 'name' as keyof ICustomer },
+    { header: 'Email', accessor: 'email' as keyof ICustomer },
+    { header: 'Phone', accessor: 'phone' as keyof ICustomer },
+];
+
 function CustomerList() {
     const [customers, setCustomers] = useState<ICustomer[]>([])
-    const { getCustomers, deleteCustomer, addCustomer, editCustomer } = useCustomerManager()
-    const [openAddCustomer, setOpenAddCustomer] = useState<ICustomerWizard>({ isOpen: false })
-
-    const columns: IColumn<ICustomer>[] = [
-        { header: 'ID', accessor: 'id' as keyof ICustomer },
-        { header: 'Name', accessor: 'name' as keyof ICustomer },
-        { header: 'Email', accessor: 'email' as keyof ICustomer },
-        { header: 'Phone', accessor: 'phone' as keyof ICustomer },
-    ];
+    const [customerWizard, setCustomerWizard] = useState<ICustomerWizard>({ isOpen: false })
+    const { getCustomers, deleteCustomer } = useCustomerManager()
 
     useEffect(() => {
-        fetchCustomers()
+        (async () => {
+            await fetchCustomers()
+        })()
+
     }, [])
 
     const fetchCustomers = async () => {
-        const customers = await getCustomers()
-        setCustomers(() => [...customers])
-        manageCustomerWizard({ isOpen: false })
+        try {
+            const customers = await getCustomers()
+            setCustomers(() => [...customers])
+            manageCustomerWizard({ isOpen: false })
+        } catch (error) {
+            console.error("Error fetching customers:", error);
+        }
     }
-
-
 
     const onEditClick = (id: string) => {
         const customer: ICustomer | undefined = customers.find((customer) => customer.id === id)
@@ -47,7 +52,7 @@ function CustomerList() {
     }
 
     const manageCustomerWizard = (data: ICustomerWizard) => {
-        setOpenAddCustomer((prev: ICustomerWizard) => ({ ...prev, ...data }))
+        setCustomerWizard((prev: ICustomerWizard) => ({ ...prev, ...data }))
     }
 
     return (
@@ -61,7 +66,7 @@ function CustomerList() {
                 onEditClick={onEditClick}
                 onDeleteClick={onDeleteClick}
             />
-            {openAddCustomer.isOpen && <AddCustomer visible onClose={() => manageCustomerWizard({ isOpen: false })} onAddCustomerComplete={fetchCustomers} mode={openAddCustomer.mode} customerData={openAddCustomer.data} />}
+            {customerWizard.isOpen && <AddCustomer visible onClose={() => manageCustomerWizard({ isOpen: false })} onAddCustomerComplete={fetchCustomers} mode={customerWizard.mode} customerData={customerWizard.data} />}
         </Flex>
     )
 }

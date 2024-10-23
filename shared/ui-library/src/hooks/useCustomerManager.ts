@@ -16,7 +16,7 @@ function useCustomerManager() {
 
     const addCustomer = async (customer: ICustomer) => {
         const customers = await getCustomers()
-        const updatedCustomers = [...customers, { ...customer, id: `${customers.length}` }]
+        const updatedCustomers = [...customers, { ...customer, id: `${customers.length + 1}` }]
 
         saveToLocalStorage(updatedCustomers)
     }

@@ -5,13 +5,19 @@ import AddProduct from './AddProduct';
 import { useProductsManager } from "shared-ui-library/hooks";
 import { Flex } from 'antd';
 
+interface IProductWizard {
+    isOpen: boolean;
+    mode?: 'Edit' | 'Add';
+    data?: IProduct;
+}
+
 function ProductsList() {
     const [prodcuts, setProducts] = useState<IProduct[]>([])
     const { getProducts, deleteProduct } = useProductsManager()
-    const [openAddCustomer, setOpenAddCustomer] = useState(false)
+    const [productWizard, setProductWizard] = useState<IProductWizard>({ isOpen: false })
 
     const columns: IColumn<IProduct>[] = [
-        { header: 'ID', accessor: 'productId' as keyof IProduct },
+        { header: 'ID', accessor: 'id' as keyof IProduct },
         { header: 'Name', accessor: 'name' as keyof IProduct },
         { header: 'Price', accessor: 'price' as keyof IProduct },
     ];
@@ -19,6 +25,13 @@ function ProductsList() {
     useEffect(() => {
         fetchProducts()
     }, [])
+
+
+    const onEditClick = (id: string) => {
+        const product: IProduct | undefined = prodcuts.find((prodcut) => prodcut.id === id)
+        console.log('product - ', id)
+        manageProductWizard({ isOpen: true, mode: 'Edit', data: product })
+    }
 
     const onDeleteProduct = async (id: string) => {
         await deleteProduct(id)
@@ -30,18 +43,22 @@ function ProductsList() {
         setProducts(() => [...prodcuts])
     }
 
+    const manageProductWizard = (data: IProductWizard) => {
+        setProductWizard((prev: IProductWizard) => ({ ...prev, ...data }))
+    }
+
     return (
         <Flex vertical gap={20}>
             <h2>Products</h2>
-            <Flex justify='flex-end'><Button type='primary' onClick={() => setOpenAddCustomer(true)}>Add Product</Button></Flex>
+            <Flex justify='flex-end'><Button type='primary' onClick={() => manageProductWizard({ isOpen: true, mode: 'Add', data: undefined })}>Add Product</Button></Flex>
             <Table
                 columns={columns}
                 data={prodcuts}
                 showActions
-                onEditClick={() => { }}
+                onEditClick={onEditClick}
                 onDeleteClick={onDeleteProduct}
             />
-            <AddProduct visible={openAddCustomer} onClose={() => setOpenAddCustomer(false)} onAddProductComplete={fetchProducts} />
+            {productWizard.isOpen && <AddProduct visible onClose={() => manageProductWizard({ isOpen: false })} onAddProductComplete={fetchProducts} mode={productWizard.mode} productData={productWizard.data} />}
         </Flex>
     )
 }

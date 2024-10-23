@@ -1,10 +1,14 @@
 interface AddCustomerProps {
+  mode?: 'Add' | 'Edit',
+  customerData?: ICustomer,
   visible: boolean;
   onClose: () => void;
   onAddCustomerComplete?: () => void;
 }
 
 interface AddProductsProps {
+  mode?: 'Add' | 'Edit',
+  productData?: IProduct,
   visible: boolean;
   onClose: () => void;
   onAddProductComplete?: () => void;

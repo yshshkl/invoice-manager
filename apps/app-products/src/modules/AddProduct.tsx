@@ -1,26 +1,38 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Flex, Input } from 'antd'
 import { Button, Drawer } from "shared-ui-library/components";
 import { useFormFields, useProductsManager } from "shared-ui-library/hooks";
 import { IProduct } from 'shared-ui-library/models';
 
-interface AddProductsProps {
+export interface AddProductsProps {
+    mode?: 'Add' | 'Edit',
+    productData?: IProduct,
     visible: boolean;
     onClose: () => void;
     onAddProductComplete?: () => void;
 }
 
-const AddProducts: React.FC<AddProductsProps> = ({ visible, onClose, onAddProductComplete }) => {
+const AddProducts: React.FC<AddProductsProps> = ({ visible, onClose, onAddProductComplete, mode, productData }) => {
+    const initialState: IProduct = {
+        id: '',
+        name: '',
+        price: 0
+    }
+
     const {
         fields,
         handleFieldChange,
-        resetFormFields
-    } = useFormFields<IProduct>({
-        name: '',
-        price: 0
-    })
+        resetFormFields,
+        setFormsField
+    } = useFormFields<IProduct>(initialState)
 
-    const { isProcessing, addProduct } = useProductsManager()
+    const { isProcessing, addProduct, editProduct } = useProductsManager()
+
+    useEffect(() => {
+        if (mode === 'Edit') {
+            setFormsField(productData || initialState)
+        }
+    }, [])
 
     const onAddProduct = async () => {
         await addProduct(fields)
@@ -28,11 +40,20 @@ const AddProducts: React.FC<AddProductsProps> = ({ visible, onClose, onAddProduc
         onAddProductComplete && await onAddProductComplete()
     }
 
-    return <Drawer visible={visible} title="Add New Product" onClose={onClose} showLoading={isProcessing}>
+    const onEditCustomer = async () => {
+        await editProduct(fields)
+        resetFormFields()
+        onAddProductComplete && await onAddProductComplete()
+    }
+
+    return <Drawer visible={visible} title={mode === 'Edit' ? "Update Product" : "Add New Product"} onClose={onClose} showLoading={isProcessing}>
         <Flex vertical gap={20} onInput={handleFieldChange}>
+            {mode === 'Edit' && <Flex vertical><label>Id</label><Input disabled name="id" value={fields.id} /></Flex>}
             <Flex vertical><label>Name</label><Input name="name" value={fields.name} /></Flex>
             <Flex vertical><label>Price</label><Input name="price" value={fields.price} /></Flex>
-            <Flex justify='flex-end'><Button type='primary' onClick={onAddProduct}>Add</Button></Flex>
+            <Flex justify='flex-end'>
+                <Button type='primary' onClick={mode === 'Edit' ? onEditCustomer : onAddProduct}>{mode === 'Edit' ? 'Update' : 'Add'}</Button>
+            </Flex>
         </Flex>
     </Drawer>
 }
