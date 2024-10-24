@@ -11,10 +11,15 @@ interface CustomerWizardProps {
 }
 
 const RemoteCustomerList = React.lazy(() =>
-    import('customersMf/CustomerList').catch((err) => {
-        console.error('Failed to load the remote module:', err);
-        return { default: () => <div>Error loading component</div> };
-    })
+    import('customersMf/CustomerList')
+        .then((module) => {
+            console.log('Successfully loaded the remote module:', module);
+            return module;
+        })
+        .catch((err) => {
+            console.error('Failed to load the remote module:', err);
+            return { default: () => <div>Error loading component</div> };
+        })
 );
 
 const RemoteProductsList = React.lazy(() =>
@@ -30,18 +35,6 @@ const RemoteInvoices = React.lazy(() =>
         return { default: () => <div>Error loading component</div> };
     })
 );
-
-const RemoteAddNewCustomer: React.LazyExoticComponent<React.ComponentType<CustomerWizardProps>> = React.lazy(() =>
-    import('customersMf/CustomerWizard')
-        .then((module) => {
-            console.log('module - ', module)
-            return { default: module.default as React.ComponentType<CustomerWizardProps> }
-        })
-        .catch((err) => {
-            console.error('Failed to load the remote module:', err);
-            return { default: () => <div>Error loading component</div> };
-        })
-)
 
 function App() {
     const location = useLocation();
@@ -62,10 +55,9 @@ function App() {
             </nav>
             <section className={classNames.mainBody}>
                 <Routes>
-                    <Route path='/customers' element={<RemoteCustomerList />} />
-                    <Route path='/products' element={<RemoteProductsList />} />
-                    <Route path='/invoices' element={<RemoteInvoices />} />
-                    <Route path='/addCustomer' element={<RemoteAddNewCustomer visible={true} onClose={() => { }} />} />
+                    <Route path='/customers' element={<Suspense fallback={<div>Loading...</div>}><RemoteCustomerList /></Suspense>} />
+                    <Route path='/products' element={<Suspense fallback={<div>Loading...</div>}><RemoteProductsList /></Suspense>} />
+                    <Route path='/invoices' element={<Suspense fallback={<div>Loading...</div>}><RemoteInvoices /></Suspense>} />
                 </Routes>
             </section>
         </Suspense>

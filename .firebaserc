@@ -1,0 +1,24 @@
+{
+  "projects": {
+    "staging": "store-app-cd59a"
+  },
+  "targets": {
+    "store-app-cd59a": {
+      "hosting": {
+        "app-customer-management": [
+          "app-customer-management-5t6y"
+        ],
+        "app-product-management": [
+          "app-product-management-5t6y"
+        ],
+        "app-invoice-management": [
+          "app-invoice-management-5t6y"
+        ],
+        "app-host": [
+          "app-host-5t6y"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

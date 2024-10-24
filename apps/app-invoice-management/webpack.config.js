@@ -10,7 +10,7 @@ module.exports = {
         port: process.env.PORT || 3003,
     },
     output: {
-        publicPath: `http://localhost:${process.env.PORT || 3003}/`,
+        publicPath: `auto`,
     },
     module: {
         rules: [
